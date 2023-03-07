@@ -1,4 +1,5 @@
 <template>
+  <input :value="currentTag" @input="onInputTagEdit"/>
   <card 
     v-for="post in filteredPosts" 
     :key="post.id"
@@ -20,7 +21,7 @@
 
 <!------------------------------- SCRIPT ------------------------------->
 <script>
-  import {computed } from 'vue';
+  import {reactive, computed } from 'vue';
   import Card from '../03.pokemon/Card.vue';
   import Controls from './Controls.vue';
   import { store } from './store';
@@ -31,19 +32,16 @@
       Controls
     },
     setup() {
-      const filteredPosts = computed(() => {
-        if (!store.state.currentTag) {
-          return store.state.posts;
-        }
-        return store.state.posts.filter(
-          post => post.hashtags.includes(store.state.currentTag)
-        );
-      });
+      const onInputTagEdit = ($event) => {
+        store.setHashtag($event.target.value)
+      }
 
       // return variables to be used in template
       return {
         store: store,
-        filteredPosts
+        filteredPosts: computed(() => store.filteredPosts),
+        currentTag: computed(() => store.state.currentTag),
+        onInputTagEdit
       };
     }
   }

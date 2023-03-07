@@ -22,6 +22,15 @@ class Store {
 
     postFound.likes++;
   }
+
+  get filteredPosts() {
+    if (!store.state.currentTag) {
+      return store.state.posts;
+    }
+    return store.state.posts.filter(
+      post => post.hashtags.includes(store.state.currentTag)
+    );
+  }
 }
 
 export const store = new Store();
