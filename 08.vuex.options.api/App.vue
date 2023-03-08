@@ -21,11 +21,11 @@
       const store = useStore();
 
       const click = (post) => {
-        store.commit('setPostIdClicked', post.id);
+        store.commit('posts/setPostIdClicked', post.id);
       }
 
       const fetchData = () => {
-        store.dispatch('fetchPosts', 'additional info can be added here');
+        store.dispatch('posts/fetch', 'additional info can be added here');
       }
 
       // Called after component is rendered in the DOM
@@ -35,9 +35,9 @@
 
       return {
         click,
-        posts: computed(() => store.state.posts),
-        postIdClicked: computed(() => store.state.postIdClicked),
-        currentPost: computed(() => store.getters.currentPost),
+        posts: computed(() => store.state.posts.all),
+        postIdClicked: computed(() => store.state.posts.postIdClicked),
+        currentPost: computed(() => store.getters['posts/currentPost']),
       }
     }
   }
