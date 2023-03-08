@@ -27,5 +27,14 @@ export const store = createStore({
       console.log(payload);
       ctx.commit('setPosts', testPosts)
     }
+  },
+
+  // getters
+  getters: {
+    currentPost(state) {
+      return state.posts.find(x => {
+        return x.id === state.postIdClicked
+      })
+    }
   }
 })

@@ -28,22 +28,16 @@
         store.dispatch('fetchPosts', 'additional info can be added here');
       }
 
-      const currentPost = computed(() => {
-        return store.state.posts.find(x => {
-          return x.id === store.state.postIdClicked
-        })
-      })
-
       // Called after component is rendered in the DOM
       onMounted(() => {
         fetchData();
       })
 
       return {
-        postIdClicked: computed(() => store.state.postIdClicked),
-        posts: computed(() => store.state.posts),
         click,
-        currentPost
+        posts: computed(() => store.state.posts),
+        postIdClicked: computed(() => store.state.postIdClicked),
+        currentPost: computed(() => store.getters.currentPost),
       }
     }
   }
