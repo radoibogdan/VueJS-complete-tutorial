@@ -1,5 +1,5 @@
 <template>
-  Hello
+  <h2>Hello Route</h2>
 </template> 
   
   
