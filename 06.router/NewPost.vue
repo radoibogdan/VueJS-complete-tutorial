@@ -17,22 +17,28 @@
 <!------------------------------- SCRIPT ------------------------------->
 <script>
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { usePosts } from './usePosts'
 
   export default {
     setup() {
       const postStore = usePosts();
+      // used to redirect to another route
+      const router = useRouter();
       const newPost = reactive({
         title: '',
         content: ''
       })
 
       const submit = () => {
+        const id = postStore.posts.value.length + 1;
         postStore.addPost({
-          id: postStore.posts.value.length + 1,
+          id,
           title: newPost.title,
           content: newPost.content
-        })
+        });
+
+        router.push(`/posts/${id}`)
       }
       // return variables to be used in template
       return {
